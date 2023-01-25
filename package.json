@@ -29,6 +29,7 @@
     "@progress/kendo-react-listview": "^5.10.0",
     "@progress/kendo-react-notification": "^5.10.0",
     "@progress/kendo-react-pdf": "^5.10.0",
+    "@progress/kendo-react-pdf-viewer": "^5.10.0",
     "@progress/kendo-react-pivotgrid": "^5.10.0",
     "@progress/kendo-react-popup": "^5.10.0",
     "@progress/kendo-react-progressbars": "^5.10.0",

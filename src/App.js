@@ -5,6 +5,7 @@ import { Input } from "@progress/kendo-react-inputs";
 import { guid } from "@progress/kendo-react-common";
 import { Grid, GridColumn, GridToolbar } from "@progress/kendo-react-grid";
 import { sampleProducts } from "./DummyData/simple-data";
+import PDFV from "./PdfViewer";
 const FORM_DATA_INDEX = "formDataIndex";
 const DATA_ITEM_KEY = "ProductID";
 const requiredValidator = (value) => (value ? "" : "The name is required");
@@ -206,33 +207,60 @@ export const App = () => {
       operation: "add",
     });
   }, [onRowAction, dataState]);
+
+  const [myFile, setMyFile] = React.useState("")
+  const renderPdf = () => {
+    return myFile ? <PDFV data={myFile} /> : ""
+  }
+
   return (
-    <GridEditContext.Provider
-      value={{
-        onRowAction,
-        editIndex,
-        setEditIndex,
-      }}
-    >
-      <Grid data={dataState} dataItemKey={DATA_ITEM_KEY} rowRender={rowRender}>
-        <GridToolbar>
-          <button
-            title="Add new"
-            className="k-button k-button-md k-rounded-md k-button-solid k-button-solid-primary"
-            onClick={onAddClick}
-          >
-            Add new
-          </button>
-        </GridToolbar>
-        <GridColumn title="Name" field="ProductName" cell={NameCell} />
-        <GridColumn
-          title="Unite Price"
-          field="UnitPrice"
-          cell={UnitePriceCell}
-        />
-        <GridColumn title="Command" cell={CommandCell} />
-      </Grid>
-    </GridEditContext.Provider>
+    // <GridEditContext.Provider
+    //   value={{
+    //     onRowAction,
+    //     editIndex,
+    //     setEditIndex,
+    //   }}
+    // >
+    //   <Grid data={dataState} dataItemKey={DATA_ITEM_KEY} rowRender={rowRender}>
+    //     <GridToolbar>
+    //       <button
+    //         title="Add new"
+    //         className="k-button k-button-md k-rounded-md k-button-solid k-button-solid-primary"
+    //         onClick={onAddClick}
+    //       >
+    //         Add new
+    //       </button>
+    //     </GridToolbar>
+    //     <GridColumn title="Name" field="ProductName" cell={NameCell} />
+    //     <GridColumn
+    //       title="Unite Price"
+    //       field="UnitPrice"
+    //       cell={UnitePriceCell}
+    //     />
+    //     <GridColumn title="Command" cell={CommandCell} />
+    //   </Grid>
+    // </GridEditContext.Provider>
+<>
+    
+      <input type='file' onChange={(e) => {
+        let reader = new FileReader()
+        reader.readAsDataURL(e.target.files[0])
+        reader.onload = () => {
+
+          setMyFile(reader.result)
+        }
+      }}>
+      </input>
+
+      {/* {JSON.stringify(myFile)}
+       */}
+      
+      {/* { renderPdf()} */}
+      
+      <PDFV  />
+</>
+    
+    
   );
 };
 export default App;
